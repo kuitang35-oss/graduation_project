@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fb;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #1976d2;
+            color: white;
+            padding: 20px 30px;
+        }
+        .container {
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 18px;
+            border: none;
+            background: #1976d2;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        a {
+            color: #1976d2;
+            text-decoration: none;
+        }
+        .top-links {
+            margin-top: 20px;
+        }
+        .top-links a {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ .title }}</h1>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>青少年网络保护策略</h2>
+
+            <form method="POST" action="/policy/update">
+                <label>青少年模式</label>
+                <select name="teen_mode">
+                    <option value="1" {{ if eq .policy.TeenMode 1 }}selected{{ end }}>开启</option>
+                    <option value="0" {{ if eq .policy.TeenMode 0 }}selected{{ end }}>关闭</option>
+                </select>
+
+                <label>默认动作</label>
+                <select name="default_action">
+                    <option value="allow" {{ if eq .policy.DefaultAction "allow" }}selected{{ end }}>allow</option>
+                    <option value="block" {{ if eq .policy.DefaultAction "block" }}selected{{ end }}>block</option>
+                </select>
+
+                <label>允许开始时间</label>
+                <input type="text" name="allowed_start" value="{{ .policy.AllowedStart }}" placeholder="例如 08:00">
+
+                <label>允许结束时间</label>
+                <input type="text" name="allowed_end" value="{{ .policy.AllowedEnd }}" placeholder="例如 22:00">
+
+                <button type="submit">保存策略</button>
+            </form>
+
+            <div class="top-links">
+                <a href="/dashboard">返回后台首页</a>
+                <a href="/rules">进入规则管理</a>
+                <a href="/logs">进入访问日志</a>
+                <a href="/">返回系统首页</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

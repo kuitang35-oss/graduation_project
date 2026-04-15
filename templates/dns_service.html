@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>DNS 服务状态</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fb;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #9bd219;
+            color: white;
+            padding: 20px 30px;
+        }
+        .container {
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            max-width: 800px;
+        }
+        a {
+            color: #1976d2;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>DNS 服务状态</h1>
+    </div>
+    <div class="container">
+        <div class="card">
+            <p>本地 DNS 原型服务已配置为监听：<strong>127.0.0.1:5354</strong></p>
+            <p>规则命中 block 时返回 0.0.0.0；未命中时转发到上游 DNS。</p>
+            <p>你可以继续在 DNS 测试页和访问日志页查看处理结果。</p>
+
+            <p>
+                <a href="/dashboard">后台首页</a>
+                <a href="/dns-test">DNS 测试</a>
+                <a href="/logs">访问日志</a>
+                <a href="/rules">规则管理</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
