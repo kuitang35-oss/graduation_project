@@ -48,17 +48,38 @@
         }
     </style>
 </head>
+
 <body>
     <div class="card">
         <h1>{{ .title }}</h1>
-        <form>
-            <input type="text" placeholder="请输入用户名" />
-            <input type="password" placeholder="请输入密码" />
-            <button type="button" onclick="window.location.href='/dashboard'">登录</button>
+
+      
+        <form onsubmit="return validateForm()">
+            <input id="username" type="text" placeholder="请输入用户名" />
+            <input id="password" type="password" placeholder="请输入密码" />
+            <button type="submit">登录</button>
         </form>
+
         <div class="hint">
             测试阶段：点击登录直接进入后台首页
         </div>
     </div>
+
+    
+    <script>
+        function validateForm() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username === "" || password === "") {
+                alert("用户名和密码不能为空");
+                return false; 
+            }
+
+            
+            window.location.href = "/dashboard";
+            return false;
+        }
+    </script>
 </body>
 </html>
