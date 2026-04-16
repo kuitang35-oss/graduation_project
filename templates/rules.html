@@ -4,138 +4,345 @@
     <meta charset="UTF-8">
     <title>{{ .title }}</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: #f7f9fb;
+            background: #f4f6f9;
             margin: 0;
             padding: 0;
+            color: #333;
         }
+
         .header {
-            background: #1976d2;
+            height: 86px;
+            background: linear-gradient(90deg, #1565c0, #1e88e5);
             color: white;
-            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
-        .container {
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header .admin-badge {
+            background: rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-size: 14px;
+        }
+
+        .main {
+            display: flex;
+            min-height: calc(100vh - 86px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #ffffff;
+            border-right: 1px solid #e5eaf0;
+            padding: 28px 20px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 14px 24px;
+            color: #333;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar a:hover {
+            background: #eaf3ff;
+            color: #1976d2;
+            padding-left: 30px;
+        }
+
+        .sidebar a.active {
+            background: #e3f2fd;
+            color: #1565c0;
+            font-weight: bold;
+        }
+
+        .content {
+            flex: 1;
             padding: 30px;
         }
+
         .card {
             background: white;
+            border-radius: 16px;
             padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
         }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 22px;
+            color: #222;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cfd8dc;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #1976d2;
+        }
+
+        .btn-row {
+            margin-top: 18px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .submit-btn,
+        .edit-btn,
+        .delete-btn,
+        .cancel-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .submit-btn {
+            background: #1976d2;
+            color: white;
+        }
+
+        .edit-btn {
+            background: #f9a825;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #9e9e9e;
+            color: white;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 10px;
         }
+
         th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e0e0e0;
             text-align: left;
+            vertical-align: middle;
         }
+
         th {
-            background: #f0f4f8;
+            background: #f5f8fc;
+            color: #333;
         }
-        a {
-            color: #1976d2;
-            text-decoration: none;
+
+        tr:hover {
+            background: #fafcff;
         }
-        .top-links {
-            margin-top: 20px;
-        }
-        .top-links a {
-            margin-right: 20px;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 14px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-        .submit-btn {
-            padding: 10px 18px;
-            border: none;
-            background: #1976d2;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .delete-btn {
-            padding: 8px 12px;
-            border: none;
-            background: #d32f2f;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        h2 {
-            margin-top: 0;
-        }
+
         .inline-form {
             display: inline;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .section-tip {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 1000px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 220px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>{{ .title }}</h1>
+        <div class="admin-badge">管理员已登录</div>
     </div>
-    <div class="container">
-        <div class="card">
-            <h2>新增域名过滤规则</h2>
-            <form method="POST" action="/rules/add">
-                <label>域名</label>
-                <input type="text" name="domain" placeholder="例如 facebook.com" required>
 
-                <label>分类</label>
-                <input type="text" name="category" placeholder="例如 social">
-
-                <label>动作</label>
-                <select name="action" required>
-                    <option value="block">block</option>
-                    <option value="allow">allow</option>
-                </select>
-
-                <button class="submit-btn" type="submit">新增规则</button>
-            </form>
+    <div class="main">
+        <div class="sidebar">
+            <h2>后台菜单</h2>
+            <a href="/dashboard">后台首页</a>
+            <a href="/dns-service">DNS 服务状态</a>
+            <a href="/rules" class="active">规则管理</a>
+            <a href="/logs">访问日志</a>
+            <a href="/policy">策略配置</a>
+            <a href="/dns-test">DNS 测试</a>
+            <a href="/">返回系统首页</a>
+            <a href="/login">退出到登录页</a>
         </div>
 
-        <div class="card">
-            <h2>域名过滤规则列表</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>域名</th>
-                        <th>分类</th>
-                        <th>动作</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range .rules }}
-                    <tr>
-                        <td>{{ .ID }}</td>
-                        <td>{{ .Domain }}</td>
-                        <td>{{ .Category }}</td>
-                        <td>{{ .Action }}</td>
-                        <td>
-                            <form class="inline-form" method="POST" action="/rules/delete/{{ .ID }}">
-                                <button class="delete-btn" type="submit" onclick="return confirm('确定删除这条规则吗？')">删除</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {{ end }}
-                </tbody>
-            </table>
+        <div class="content">
+            <div class="card">
+                <h2>新增域名过滤规则</h2>
+                <p class="section-tip">在这里添加新的域名过滤规则。</p>
 
-            <div class="top-links">
-                <a href="/dashboard">返回后台首页</a>
-                <a href="/">返回系统首页</a>
+                <form method="POST" action="/rules/add">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>域名</label>
+                            <input type="text" name="domain" placeholder="例如 facebook.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>分类</label>
+                            <input type="text" name="category" placeholder="例如 social">
+                        </div>
+
+                        <div class="form-group">
+                            <label>动作</label>
+                            <select name="action" required>
+                                <option value="block">block</option>
+                                <option value="allow">allow</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="btn-row">
+                        <button class="submit-btn" type="submit">新增规则</button>
+                    </div>
+                </form>
+            </div>
+
+            {{ if .editingRule }}
+            <div class="card">
+                <h2>修改已有规则</h2>
+                <p class="section-tip">你正在修改 ID 为 {{ .editingRule.ID }} 的规则。</p>
+
+                <form method="POST" action="/rules/update/{{ .editingRule.ID }}">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>域名</label>
+                            <input type="text" name="domain" value="{{ .editingRule.Domain }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>分类</label>
+                            <input type="text" name="category" value="{{ .editingRule.Category }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>动作</label>
+                            <select name="action" required>
+                                <option value="block" {{ if eq .editingRule.Action "block" }}selected{{ end }}>block</option>
+                                <option value="allow" {{ if eq .editingRule.Action "allow" }}selected{{ end }}>allow</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="btn-row">
+                        <button class="submit-btn" type="submit">保存修改</button>
+                        <a class="cancel-btn" href="/rules">取消编辑</a>
+                    </div>
+                </form>
+            </div>
+            {{ end }}
+
+            <div class="card">
+                <h2>域名过滤规则列表</h2>
+                <p class="section-tip">你可以在下方查看、编辑或删除已有规则。</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>域名</th>
+                            <th>分类</th>
+                            <th>动作</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{ range .rules }}
+                        <tr>
+                            <td>{{ .ID }}</td>
+                            <td>{{ .Domain }}</td>
+                            <td>{{ .Category }}</td>
+                            <td>{{ .Action }}</td>
+                            <td>
+                                <div class="action-group">
+                                    <a class="edit-btn" href="/rules/edit/{{ .ID }}">编辑</a>
+
+                                    <form class="inline-form" method="POST" action="/rules/delete/{{ .ID }}">
+                                        <button class="delete-btn" type="submit" onclick="return confirm('确定删除这条规则吗？')">删除</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {{ end }}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
