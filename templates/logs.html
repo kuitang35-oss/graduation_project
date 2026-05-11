@@ -169,6 +169,18 @@
             </div>
 
             <div class="card">
+                <div style="margin-bottom: 20px;">
+    <form method="GET" action="/logs">
+        <label style="font-weight:bold; margin-right:10px;">动作筛选</label>
+        <select name="action" style="padding:8px; border-radius:6px; border:1px solid #ccc;">
+            <option value="all" {{ if eq .filterAction "all" }}selected{{ end }}>全部</option>
+            <option value="allow" {{ if eq .filterAction "allow" }}selected{{ end }}>allow</option>
+            <option value="block" {{ if eq .filterAction "block" }}selected{{ end }}>block</option>
+        </select>
+        <button type="submit" style="margin-left:10px; padding:8px 14px; border:none; background:#1976d2; color:white; border-radius:6px; cursor:pointer;">筛选</button>
+    </form>
+</div>
+
                 <h2>访问日志列表</h2>
 
                 <table>

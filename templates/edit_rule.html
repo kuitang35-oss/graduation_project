@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fb;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #1976d2;
+            color: white;
+            padding: 20px 30px;
+        }
+        .container {
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            max-width: 700px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 18px;
+            border: none;
+            background: #1976d2;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        a {
+            color: #1976d2;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .links {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ .title }}</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <form method="POST" action="/rules/update/{{ .rule.ID }}">
+                <label>域名</label>
+                <input type="text" name="domain" value="{{ .rule.Domain }}" required>
+
+                <label>分类</label>
+                <input type="text" name="category" value="{{ .rule.Category }}">
+
+                <label>动作</label>
+                <select name="action" required>
+                    <option value="block" {{ if eq .rule.Action "block" }}selected{{ end }}>block</option>
+                    <option value="allow" {{ if eq .rule.Action "allow" }}selected{{ end }}>allow</option>
+                </select>
+
+                <button type="submit">保存修改</button>
+            </form>
+
+            <div class="links">
+                <a href="/rules">返回规则管理</a>
+                <a href="/dashboard">返回后台首页</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fb;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #1976d2;
+            color: white;
+            padding: 20px 30px;
+        }
+        .container {
+            padding: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #444;
+        }
+        .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .links {
+            margin-top: 30px;
+        }
+        .links a {
+            color: #1976d2;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ .title }}</h1>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h2>总访问次数</h2>
+                <div class="value">{{ .stats.TotalRequests }}</div>
+            </div>
+
+            <div class="card">
+                <h2>总拦截次数</h2>
+                <div class="value">{{ .stats.BlockedRequests }}</div>
+            </div>
+
+            <div class="card">
+                <h2>总放行次数</h2>
+                <div class="value">{{ .stats.AllowedRequests }}</div>
+            </div>
+
+            <div class="card">
+                <h2>最常访问域名</h2>
+                <div class="value" style="font-size:20px;">{{ .stats.TopVisitedDomain }}</div>
+            </div>
+
+            <div class="card">
+                <h2>最常被拦截域名</h2>
+                <div class="value" style="font-size:20px;">{{ .stats.TopBlockedDomain }}</div>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="/dashboard">返回后台首页</a>
+            <a href="/logs">访问日志</a>
+            <a href="/rules">规则管理</a>
+            <a href="/dns-test">DNS 测试</a>
+        </div>
+    </div>
+</body>
+</html>
